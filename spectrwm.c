@@ -6146,10 +6146,10 @@ stack_master(struct workspace *ws, struct swm_geometry *g, int rot, bool flip)
 		}
 
 		if (!bordered) {
-			X(win) -= border_width;
-			Y(win) -= border_width;
-			WIDTH(win) += 2 * border_width;
-			HEIGHT(win) += 2 * border_width;
+			X(win) -= border_width + region_padding;
+			Y(win) -= border_width + region_padding;
+			WIDTH(win) += 2 * (border_width + region_padding);
+			HEIGHT(win) += 2 * (border_width + region_padding);
 		}
 
 		if (bordered != win->bordered) {
@@ -6347,8 +6347,10 @@ max_stack(struct workspace *ws, struct swm_geometry *g)
 			if (disable_border &&
 			    !(bar_enabled && ws->bar_enabled)) {
 				w->bordered = false;
-				WIDTH(w) += 2 * border_width;
-				HEIGHT(w) += 2 * border_width;
+				X(w) -= region_padding;
+				Y(w) -= region_padding;
+				WIDTH(w) += 2 * border_width + 2 * region_padding;
+				HEIGHT(w) += 2 * border_width + 2 * region_padding;
 			} else {
 				w->bordered = true;
 				X(w) += border_width;
